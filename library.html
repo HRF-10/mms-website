@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <title>Qur'an & Pustaka - Masjid Baitul Iman</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Main Style -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- NAV -->
+<div class="container-fluid fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-light navbar-expand-lg py-3">
+            <a href="index.html" class="navbar-brand">
+                <h1 class="mb-0">Masjid <span class="text-primary">Baitul Iman</span></h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav ms-lg-auto mx-xl-auto">
+                    <a href="index.html" class="nav-item nav-link">Beranda</a>
+                    <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
+                    <a href="keuangan.html" class="nav-item nav-link">Keuangan</a>
+                    <a href="pray.html" class="nav-item nav-link">Jadwal Sholat</a>
+                    <a href="quran-library.html" class="nav-item nav-link active">Qur'an & Pustaka</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="container-fluid hero-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="hero-header-inner animated zoomIn">
+                    <h1 class="display-1 text-dark">Qur’an & Pustaka</h1>
+                    <p class="lead text-dark">Belajar, membaca, dan memahami ilmu Islam secara digital.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION: QURAN PLAYER -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">Baca & Dengarkan Al-Qur’an</h2>
+    <p class="text-center text-muted mb-4">Akses Al-Qur’an secara digital lengkap dengan audio dan terjemahan.</p>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="list-group shadow-sm">
+                <button class="list-group-item list-group-item-action" onclick="loadSurah('1', 'Al-Fatihah')">Surah Al-Fatihah</button>
+                <button class="list-group-item list-group-item-action" onclick="loadSurah('2', 'Al-Baqarah')">Surah Al-Baqarah</button>
+                <button class="list-group-item list-group-item-action" onclick="loadSurah('36', 'Yasin')">Surah Yasin</button>
+                <button class="list-group-item list-group-item-action" onclick="loadSurah('55', 'Ar-Rahman')">Surah Ar-Rahman</button>
+                <button class="list-group-item list-group-item-action" onclick="loadSurah('67', 'Al-Mulk')">Surah Al-Mulk</button>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="p-4 bg-white shadow-sm rounded">
+                <h4 id="surahTitle" class="mb-3">Pilih Surah</h4>
+                <iframe id="quranViewer" src="" width="100%" height="450" style="border:none;border-radius:10px;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SECTION: LIBRARY -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">Pustaka Islami</h2>
+    <p class="text-center text-muted mb-5">Koleksi buku digital untuk dipelajari kapan saja.</p>
+
+    <div class="row g-4">
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-sm">
+                <img src="img/book1.jpg" class="card-img-top" alt="Fiqih Sunnah">
+                <div class="card-body">
+                    <h5 class="card-title">Fiqih Sunnah</h5>
+                    <p class="text-muted">Sayyid Sabiq</p>
+                    <a href="assets/fiqih-sunnah.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-sm">
+                <img src="img/book2.jpg" class="card-img-top" alt="Sirah Nabawiyah">
+                <div class="card-body">
+                    <h5 class="card-title">Sirah Nabawiyah</h5>
+                    <p class="text-muted">Ibnu Katsir</p>
+                    <a href="assets/sirah.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-sm">
+                <img src="img/book3.jpg" class="card-img-top" alt="Riyadhus Shalihin">
+                <div class="card-body">
+                    <h5 class="card-title">Riyadhus Shalihin</h5>
+                    <p class="text-muted">Imam Nawawi</p>
+                    <a href="assets/riyadhus-shalihin.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="container-fluid footer pt-5">
+    <div class="container text-center py-5 text-light">
+        <p>© 2025 Masjid Baitul Iman. Semua Hak Dilindungi.</p>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+function loadSurah(num, name) {
+    document.getElementById("surahTitle").textContent = "Surah " + name;
+    document.getElementById("quranViewer").src = "https://quran.com/" + num;
+}
+</script>
+
+</body>
+</html>

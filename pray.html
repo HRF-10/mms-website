@@ -1,410 +1,489 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="utf-8">
-    <title>Jadwal Sholat - Masjid Dalem Kalitan Solo</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<title>Jadwal Sholat - Masjid Dalem Kalitan Solo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<!-- Fonts & icons (sama seperti kamu) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Libraries CSS -->
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Libraries CSS -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<!-- Bootstrap & main style -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* keep your original styles, minor adjustments only */
+.prayer-box {
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    padding: 35px;
+    border-radius: 18px;
+}
+.countdown-box { margin-top:25px; background: rgba(0,0,0,0.06); padding:20px; border-radius:15px; text-align:center; }
+.countdown-time { font-size:42px; font-weight:bold; color:#f1c152; }
+.khutbah-section { background: rgba(255,255,255,0.7); border-radius: 18px; padding:40px; }
+table.prayer-table { width:100%; margin-top:20px; }
+table.prayer-table td { padding:12px 0; font-size:20px; border-bottom:1px solid #ddd; }
+.week-table thead th { background: #f8f9fa; }
+.next-prayer { border-left:5px solid #f1c152; padding-left:12px; background: rgba(13,110,253,0.04); border-radius:8px; }
 
-    <!-- Main Styles -->
-    <link href="css/style.css" rel="stylesheet">
+/* running text (non-fixed, above navbar) */
+#runningText { background: #f1c152; color: white; padding:8px 0; white-space:nowrap; overflow:hidden; font-size:16px; }
+#runningText .marquee { display:inline-block; padding-left:100%; animation: marqueeScroll 20s linear infinite; font-weight:600; }
+@keyframes marqueeScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
 
-    <style>
-        .prayer-box {
-            background: rgba(255,255,255,0.45);
-            border: 1px solid rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
-            padding: 35px;
-            border-radius: 18px;
-        }
-
-        .countdown-box {
-            margin-top: 25px;
-            background: rgba(0,0,0,0.06);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .countdown-time {
-            font-size: 42px;
-            font-weight: bold;
-            color: #0d6efd;
-        }
-
-        .khutbah-section {
-            background: rgba(255,255,255,0.7);
-            border-radius: 18px;
-            padding: 40px;
-        }
-
-        table.prayer-table {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        table.prayer-table td {
-            padding: 12px 0;
-            font-size: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .week-table thead th {
-            background: #f8f9fa;
-        }
-
-        .next-prayer {
-            border-left: 5px solid #0d6efd;
-            padding-left: 12px;
-            background: rgba(13,110,253,0.04);
-            border-radius: 8px;
-        }
-    </style>
+/* adzan popup */
+#adzanPopup { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; color:white; align-items:center; justify-content:center; text-align:center; z-index:999999; padding:20px; }
+#adzanPopup h1 { font-size:56px; margin-bottom:8px; }
+#adzanPopup p { font-size:20px; opacity:0.9 }
+#adzanPopup button { margin-top:24px; padding:10px 24px; font-size:18px; border-radius:10px; border:none; background:#0d6efd; color:white; cursor:pointer; }
+</style>
 </head>
-
 <body>
-<!-- NAVBAR -->
-<div class="container-fluid fixed-top">
-    <div class="container">
-        <nav class="navbar navbar-light navbar-expand-lg py-3">
-            <a href="index.html" class="navbar-brand">
-                <h1 class="mb-0">Masjid <span class="text-primary">Dalem Kalitan</span></h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars text-primary"></span>
-            </button>
-            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                <div class="navbar-nav ms-lg-auto mx-xl-auto">
-                    <a href="index.html" class="nav-item nav-link">Beranda</a>
-                    <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
-                    <a href="keuangan.html" class="nav-item nav-link">Keuangan</a>
-                    <a href="pray.html" class="nav-item nav-link active">Jadwal Sholat</a>
-                    <a href="library.html" class="nav-item nav-link">Qur'an & Pustaka</a>
-                </div>
-                <a href="keuangan.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block">Infaq</a>
-            </div>
-        </nav>
-    </div>
+
+<!-- RUNNING TEXT (di atas navbar, non-fixed) -->
+<div id="runningText">
+  <div class="marquee">
+    “Sesungguhnya sholat itu tiang agama.” • “Barangsiapa mendirikan sholat, maka ia telah menegakkan agama.” •
+    “Dekatkan diri kepada Allah, niscaya hati menjadi tenang.” • “Sebaik-baik amal adalah sholat tepat waktu.”
+  </div>
 </div>
+
+<!-- NAVBAR -->
+<div class="container-fluid fixed-top" style="top:40px;"> <!-- top adjusted so navbar not overlap runningText -->
+  <div class="container">
+    <nav class="navbar navbar-light navbar-expand-lg py-3">
+      <a href="index.html" class="navbar-brand"><h1 class="mb-0">Masjid <span class="text-primary">Dalem Kalitan</span></h1></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars text-primary"></span>
+      </button>
+      <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+        <div class="navbar-nav ms-lg-auto mx-xl-auto">
+          <a href="index.html" class="nav-item nav-link">Beranda</a>
+          <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
+          <a href="keuangan.html" class="nav-item nav-link">Keuangan</a>
+          <a href="pray.html" class="nav-item nav-link active">Jadwal Sholat</a>
+          <a href="library.html" class="nav-item nav-link">Qur'an & Pustaka</a>
+        </div>
+        <a href="keuangan.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block">Infaq</a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- spacer supaya navbar tidak nutup konten -->
+<div style="height:110px;"></div>
 
 <!-- HERO -->
 <div class="container-fluid hero-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7">
-                <div class="hero-header-inner animated zoomIn">
-                    <h1 class="display-1 text-dark">Jadwal Sholat</h1>
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
-                        <li class="breadcrumb-item text-dark" aria-current="page">Jadwal Sholat</li>
-                    </ol>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="hero-header-inner animated zoomIn">
+          <h1 class="display-1 text-dark">Jadwal Sholat</h1>
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+            <li class="breadcrumb-item text-dark" aria-current="page">Jadwal Sholat</li>
+          </ol>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- CONTENT JADWAL -->
+<!-- CONTENT -->
 <div class="container py-5">
+  <h1 class="display-3 mb-5 wow fadeIn" data-wow-delay="0.1s">Jadwal Sholat <span class="text-primary">Minggu Ini</span></h1>
 
-    <h1 class="display-3 mb-5 wow fadeIn" data-wow-delay="0.1s">
-        Jadwal Sholat <span class="text-primary">Minggu Ini</span>
-    </h1>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="prayer-box shadow">
+        <h4 class="mb-3"><i class="fa fa-calendar-alt text-primary"></i> <span id="todayDate">--</span></h4>
 
-    <!-- Today's summary + countdown -->
-    <div class="row g-4">
-        <div class="col-lg-7">
-            <div class="prayer-box shadow wow fadeIn" data-wow-delay="0.2s">
-                <h4 class="mb-3"><i class="fa fa-calendar-alt text-primary"></i> <span id="todayDate"></span></h4>
+        <table class="prayer-table">
+          <tr><td><strong>Subuh</strong></td><td id="subuh">--:--</td><td>Imam: Ust. Hasan</td></tr>
+          <tr><td><strong>Dzuhur</strong></td><td id="dzuhur">--:--</td><td>Imam: Ust. Basim</td></tr>
+          <tr><td><strong>Ashar</strong></td><td id="ashar">--:--</td><td>Imam: Ust. Rakhan</td></tr>
+          <tr><td><strong>Maghrib</strong></td><td id="maghrib">--:--</td><td>Imam: Ust. Zaki</td></tr>
+          <tr><td><strong>Isya</strong></td><td id="isya">--:--</td><td>Imam: Ust. Malik</td></tr>
+        </table>
 
-                <table class="prayer-table">
-                    <tr><td><strong>Subuh</strong></td><td id="subuh">--:--</td><td>Imam: Ust. Hasan</td></tr>
-                    <tr><td><strong>Dzuhur</strong></td><td id="dzuhur">--:--</td><td>Imam: Ust. Basim</td></tr>
-                    <tr><td><strong>Ashar</strong></td><td id="ashar">--:--</td><td>Imam: Ust. Rakhan</td></tr>
-                    <tr><td><strong>Maghrib</strong></td><td id="maghrib">--:--</td><td>Imam: Ust. Zaki</td></tr>
-                    <tr><td><strong>Isya</strong></td><td id="isya">--:--</td><td>Imam: Ust. Malik</td></tr>
-                </table>
-
-                <!-- COUNTDOWN -->
-                <div class="countdown-box shadow mt-4">
-                    <h4 id="countdownTitle" class="mb-2">Hitung Mundur</h4>
-                    <div id="countdownTime" class="countdown-time">00:00:00</div>
-                    <p id="countdownLabel" class="text-muted mt-2"></p>
-                </div>
-
-            </div>
+        <div class="countdown-box shadow mt-4">
+          <h4 id="countdownTitle" class="mb-2">Hitung Mundur</h4>
+          <div id="countdownTime" class="countdown-time">00:00:00</div>
+          <p id="countdownLabel" class="text-muted mt-2"></p>
         </div>
-
-        <!-- Weekly table -->
-        <div class="col-lg-5">
-            <div class="p-4 shadow-sm rounded week-schedule">
-                <h5 class="mb-3">Jadwal 7 Hari (Surakarta)</h5>
-                <table class="table table-sm week-table">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Subuh</th>
-                            <th>Dzuhur</th>
-                            <th>Asr</th>
-                            <th>Maghrib</th>
-                            <th>Isya</th>
-                        </tr>
-                    </thead>
-                    <tbody id="weekBody">
-                        <!-- rows generated by JS -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="col-lg-5">
+      <div class="p-4 shadow-sm rounded week-schedule">
+        <h5 class="mb-3">Jadwal 7 Hari (Surakarta)</h5>
+        <table class="table table-sm week-table">
+          <thead>
+            <tr>
+              <th>Tanggal</th><th>Subuh</th><th>Dzuhur</th><th>Asr</th><th>Maghrib</th><th>Isya</th>
+            </tr>
+          </thead>
+          <tbody id="weekBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- KHUTBAH -->
 <div class="container pb-5" id="khutbahSection">
-    <div class="khutbah-section shadow wow fadeIn" data-wow-delay="0.3s">
-        <h2 class="mb-3">Khutbah Jumat Minggu Ini</h2>
-        <h4 class="text-primary">Ust. Abdul Karim</h4>
-        <p>Tema: Menghidupkan Hati dengan Dzikir</p>
-        <p><i class="fa fa-calendar"></i> Jumat — 11:40</p>
-    </div>
+  <div class="khutbah-section shadow">
+    <h2 class="mb-3">Khutbah Jumat Minggu Ini</h2>
+    <h4 class="text-primary">Ust. Abdul Karim</h4>
+    <p>Tema: Menghidupkan Hati dengan Dzikir</p>
+    <p><i class="fa fa-calendar"></i> Jumat — 11:40</p>
+  </div>
 </div>
 
 <!-- FOOTER -->
-<div class="container-fluid footer pt-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="container py-5 text-center text-secondary">
-        &copy; Masjid Dalem Kalitan Solo — Smart Mosque Project
-    </div>
+<div class="container-fluid footer pt-5">
+  <div class="container py-5 text-center text-secondary">
+    &copy; Masjid Dalem Kalitan Solo — Smart Mosque Project
+  </div>
 </div>
 
-<!-- Scripts: order penting! -->
-<!-- 1) jQuery (owl & plugins depend on jQuery) -->
+<!-- POPUP ADZAN -->
+<div id="adzanPopup">
+  <div>
+    <h1 id="adzanName">ADZAN</h1>
+    <p id="adzanTime"></p>
+    <button id="closeAdzan">Tutup</button>
+  </div>
+</div>
+
+<!-- Audio adzan (type 2) -->
+<audio id="adzanAudio" preload="auto">
+  <source src="audio/adzan2.mp3" type="audio/mpeg">
+</audio>
+
+<!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<!-- 2) Owl Carousel JS (kamu pakai CSS-nya; JS harus ada) -->
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-<!-- 3) Bootstrap bundle (Bootstrap 5 tidak membutuhkan jQuery, tapi urutan ini aman) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- 4) wow.js (dipakai untuk animasi di halaman) -->
 <script src="lib/wow/wow.min.js"></script>
 
-<!-- 5) Adhan.js (harus dimuat sebelum kode yang memakai `adhan`) 
-     -> menggunakan unpkg untuk menghindari masalah MIME pada jsdelivr yang kamu alami -->
-<script src="https://unpkg.com/adhan@4.1.0/dist/adhan.min.js"></script>
-
-<!-- 6) main.js (kode situs kamu yang memanggil owlCarousel, dll) -->
-<script src="js/main.js"></script>
-
-<!-- 7) Kode inline (menggunakan `adhan`) — pastikan ini berada setelah adhan.js -->
 <script>
-/* ----- KODE KAMU (tetap) ----- */
-/* Saya tidak mengubah logika utama — hanya memastikan skrip ini dimuat setelah Adhan dan deps. */
-/* 1) Location for Surakarta (Solo) */
-const LAT = -7.566;
+/*
+  Prayer time engine (Kemenag-ish):
+  - Coordinates: Surakarta (LAT/LON)
+  - Method: Kemenag (Fajr 20°, Isha 18°), Asr: Shafi (factor=1)
+  - Uses NOAA-style solar calculations (no external APIs)
+  - Uses device date for "today" but computes times for Asia/Jakarta (WIB).
+*/
+
+const LAT = -7.566;   // Surakarta approx
 const LON = 110.824;
+const TZ = 7;         // timezone offset hours for WIB
+const FAJR_ANGLE = 20; // Kemenag fajr angle
+const ISHA_ANGLE = 18; // Kemenag isha angle
+const ASR_FACTOR = 1;  // Shafi
 
-/* 2) Utility: current time in Jakarta (WIB, UTC+7) */
+// Utility: convert degrees <-> radians
+const toRad = d => d * Math.PI / 180;
+const toDeg = r => r * 180 / Math.PI;
+
+// Get "now" in Jakarta as Date object
 function nowJakarta() {
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const jakartaTime = new Date(utc + (7 * 3600000));
-    return jakartaTime;
+  // create Date representing current time in Asia/Jakarta
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
 }
 
-/* 3) Format helper (shows HH:MM) with leading zeros */
-function fmtTime(dateObj) {
-    return dateObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' });
+// Julian day for date at 0h UT
+function julianDay(year, month, day) {
+  if (month <= 2) { year--; month += 12; }
+  const A = Math.floor(year/100);
+  const B = 2 - A + Math.floor(A/4);
+  const jd = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + B - 1524.5;
+  return jd;
 }
 
-/* 4) Compute prayer times for a given date (year,month,day) using Adhan.js */
-function computeTimesForDate(year, month, day) {
-    const date = new Date(Date.UTC(year, month - 1, day));
-    const coordinates = new adhan.Coordinates(LAT, LON);
-    const params = adhan.CalculationMethod.MuslimWorldLeague();
-    params.madhab = adhan.Madhab.Shafi;
-    const times = new adhan.PrayerTimes(coordinates, date, params);
+// Compute solar declination and equation of time for given Julian day
+// returns {declination (rad), eqtime (minutes)}
+function solarDeclinationAndEqTime(jd) {
+  const T = (jd - 2451545.0) / 36525.0;
 
-    return {
-        fajr: times.fajr,
-        sunrise: times.sunrise,
-        dhuhr: times.dhuhr,
-        asr: times.asr,
-        maghrib: times.maghrib,
-        isha: times.isha
-    };
+  // Geometric mean longitude of the Sun (deg)
+  let L0 = 280.46646 + T*(36000.76983 + T*0.0003032);
+  L0 = (L0 + 360) % 360;
+
+  // Geometric mean anomaly of the Sun (deg)
+  const M = 357.52911 + T*(35999.05029 - 0.0001537*T);
+
+  // Eccentricity of Earth's orbit
+  const e = 0.016708634 - T*(0.000042037 + 0.0000001267*T);
+
+  // Sun equation of center
+  const Mr = toRad(M);
+  const C = (1.914602 - T*(0.004817 + 0.000014*T))*Math.sin(Mr)
+          + (0.019993 - 0.000101*T)*Math.sin(2*Mr)
+          + 0.000289*Math.sin(3*Mr);
+
+  // Sun true longitude
+  const trueLong = L0 + C;
+
+  // Apparent Sun longitude
+  const omega = 125.04 - 1934.136 * T;
+  const lambda = trueLong - 0.00569 - 0.00478 * Math.sin(toRad(omega));
+
+  // Obliquity of ecliptic
+  const meanObliq = 23 + (26 + ((21.448 - T*(46.815 + T*(0.00059 - T*0.001813)))/60))/60;
+  const obliqCorr = meanObliq + 0.00256 * Math.cos(toRad(omega));
+
+  // Declination
+  const decl = Math.asin(Math.sin(toRad(obliqCorr)) * Math.sin(toRad(lambda)));
+
+  // Equation of time (minutes)
+  const y = Math.tan(toRad(obliqCorr/2)) * Math.tan(toRad(obliqCorr/2));
+  const eqtime = 4 * toDeg(
+      y * Math.sin(2*toRad(L0))
+    - 2*e * Math.sin(Mr)
+    + 4*e*y * Math.sin(Mr) * Math.cos(2*toRad(L0))
+    - 0.5 * y*y * Math.sin(4*toRad(L0))
+    - 1.25 * e*e * Math.sin(2*Mr)
+  );
+
+  return { declination: decl, eqtime: eqtime };
 }
 
-/* 5) Build 7-day schedule starting from today (Jakarta date) */
-function buildWeekSchedule() {
-    const base = nowJakarta();
-    const year = base.getFullYear();
-    const month = base.getMonth() + 1;
-    const day = base.getDate();
-
-    const weekBody = document.getElementById("weekBody");
-    weekBody.innerHTML = "";
-
-    for (let i = 0; i < 7; i++) {
-        const d = new Date(Date.UTC(year, month - 1, day + i));
-        const y = d.getUTCFullYear();
-        const m = d.getUTCMonth() + 1;
-        const dd = d.getUTCDate();
-
-        const t = computeTimesForDate(y, m, dd);
-
-        const row = document.createElement("tr");
-        const dateCell = document.createElement("td");
-        dateCell.innerText = new Date(Date.UTC(y, m - 1, dd)).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' , timeZone: 'Asia/Jakarta'});
-        row.appendChild(dateCell);
-
-        const cells = ['fajr','dhuhr','asr','maghrib','isha'].map(key => {
-            const td = document.createElement("td");
-            td.innerText = fmtTime(t[key]);
-            return td;
-        });
-
-        cells.forEach(c => row.appendChild(c));
-        weekBody.appendChild(row);
-    }
+// Compute solar noon (minutes) for given date (year,month,day)
+function solarNoonMinutes(year, month, day, longitude) {
+  const jd = julianDay(year, month, day);
+  const { eqtime } = solarDeclinationAndEqTime(jd);
+  const noonMin = 720 - 4 * longitude - eqtime + TZ * 60;
+  return noonMin; // minutes from 00:00 local time
 }
 
-/* 6) Fill today's times in main table */
-function fillTodayTimes() {
-    const now = nowJakarta();
-    const y = now.getFullYear(), m = now.getMonth()+1, d = now.getDate();
-    const times = computeTimesForDate(y, m, d);
-
-    document.getElementById("subuh").innerText = fmtTime(times.fajr);
-    document.getElementById("dzuhur").innerText = fmtTime(times.dhuhr);
-    document.getElementById("ashar").innerText = fmtTime(times.asr);
-    document.getElementById("maghrib").innerText = fmtTime(times.maghrib);
-    document.getElementById("isya").innerText = fmtTime(times.isha);
+// Compute hour angle (degrees) for given zenith
+function hourAngleForZenith(latRad, declRad, zenithRad) {
+  const cosH = (Math.cos(zenithRad) - Math.sin(latRad)*Math.sin(declRad)) / (Math.cos(latRad)*Math.cos(declRad));
+  // clamp
+  const c = Math.min(1, Math.max(-1, cosH));
+  const H = Math.acos(c);
+  return toDeg(H); // degrees
 }
 
-/* 7) Find next upcoming prayer (returns object with name and Date target in Jakarta time). */
-function findNextPrayer() {
-    const now = nowJakarta();
-    for (let dayOffset = 0; dayOffset < 8; dayOffset++) {
-        const candidateDate = new Date(now.getTime() + dayOffset * 24 * 3600 * 1000);
-        const y = candidateDate.getFullYear(), m = candidateDate.getMonth() + 1, d = candidateDate.getDate();
-        const times = computeTimesForDate(y, m, d);
-
-        const order = [
-            { key: 'fajr', name: 'Subuh', date: times.fajr },
-            { key: 'dhuhr', name: 'Dzuhur', date: times.dhuhr },
-            { key: 'asr', name: 'Ashar', date: times.asr },
-            { key: 'maghrib', name: 'Maghrib', date: times.maghrib },
-            { key: 'isha', name: 'Isya', date: times.isha }
-        ];
-
-        for (let p of order) {
-            const timeStr = p.date.toLocaleTimeString('en-GB', {hour12:false, timeZone:'Asia/Jakarta'});
-            const [hh, mm, ss] = timeStr.split(':').map(Number);
-            const dateStringISO = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00 GMT+0700`;
-            const targetTime = new Date(dateStringISO);
-            const nowEpoch = now.getTime();
-            if (targetTime.getTime() - nowEpoch > 0) {
-                return { name: p.name, time: targetTime, raw: p.date, dayOffset };
-            }
-        }
-    }
-    const tomorrow = new Date(now.getTime() + 24*3600*1000);
-    const t = computeTimesForDate(tomorrow.getFullYear(), tomorrow.getMonth()+1, tomorrow.getDate());
-    const dateStringISO = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')} ${String(t.fajr.getHours()).padStart(2,'0')}:${String(t.fajr.getMinutes()).padStart(2,'0')}:00 GMT+0700`;
-    return { name: 'Subuh', time: new Date(dateStringISO), raw: t.fajr, dayOffset: 1 };
+// Convert minutes-from-midnight (WIB) to JS Date (Asia/Jakarta)
+function minutesToJakartaDate(year, month, day, minutes) {
+  // minutes may be fractional
+  const hh = Math.floor(minutes/60);
+  const mm = Math.floor(minutes%60);
+  const ss = Math.floor((minutes - Math.floor(minutes)) * 60);
+  // build ISO string with +07:00 offset so Date() interprets correctly
+  const iso = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}+07:00`;
+  return new Date(iso);
 }
 
-/* 8) Update countdown display every second */
+// Compute prayer times for a date (year,month,day) in Jakarta local time
+function computePrayerTimesForDate(year, month, day) {
+  const jd = julianDay(year, month, day);
+  const sd = solarDeclinationAndEqTime(jd);
+  const decl = sd.declination;
+  const eq = sd.eqtime;
+
+  // solar noon minutes
+  const noonMin = 720 - 4 * LON - eq + TZ*60;
+
+  // helper radians
+  const latRad = toRad(LAT);
+  const declRad = decl;
+
+  // sunrise/sunset standard zenith (90.833 deg)
+  const zenithSunrise = toRad(90.833);
+
+  // hour angle for sunrise/sunset
+  const H_sun = hourAngleForZenith(latRad, declRad, zenithSunrise);
+  const sunriseMin = noonMin - H_sun * 4;
+  const sunsetMin  = noonMin + H_sun * 4;
+
+  // fajr (twilight) zenith = 90 + FAJR_ANGLE
+  const zenithFajr = toRad(90 + FAJR_ANGLE);
+  const H_fajr = hourAngleForZenith(latRad, declRad, zenithFajr);
+  const fajrMin = noonMin - H_fajr * 4;
+
+  // isha
+  const zenithIsha = toRad(90 + ISHA_ANGLE);
+  const H_isha = hourAngleForZenith(latRad, declRad, zenithIsha);
+  const ishaMin = noonMin + H_isha * 4; // note: Isha occurs after noon or after maghrib? For symmetry use sunset-based alternative: isha = noon + H_isha*4 if H_isha computed similar sign
+
+  // dhuhr = solar noon
+  const dhuhrMin = noonMin;
+
+  // asr (Shafi): compute sun altitude for asr
+  // formula: h_asr = arctan(1/(factor + tan(|lat - decl|))) ; zenith_asr = 90 - h_asr
+  const factor = ASR_FACTOR;
+  const angleForAsr = Math.atan(1 / (factor + Math.tan(Math.abs(latRad - declRad))));
+  const zenithAsr = toRad(90) - angleForAsr;
+  const H_asr = hourAngleForZenith(latRad, declRad, zenithAsr);
+  const asrMin = noonMin + H_asr * 4;
+
+  // convert mins to Date objects in Jakarta
+  const fajrDate = minutesToJakartaDate(year, month, day, fajrMin);
+  const sunriseDate = minutesToJakartaDate(year, month, day, sunriseMin);
+  const dhuhrDate = minutesToJakartaDate(year, month, day, dhuhrMin);
+  const asrDate = minutesToJakartaDate(year, month, day, asrMin);
+  const maghribDate = minutesToJakartaDate(year, month, day, sunsetMin);
+  const ishaDate = minutesToJakartaDate(year, month, day, ishaMin);
+
+  return {
+    fajr: fajrDate,
+    sunrise: sunriseDate,
+    dhuhr: dhuhrDate,
+    asr: asrDate,
+    maghrib: maghribDate,
+    isha: ishaDate
+  };
+}
+
+/* Build 7-day schedule starting from today's Jakarta date (uses device date) */
+function buildWeekScheduleAndFill() {
+  const nowJkt = nowJakarta();
+  const year = nowJkt.getFullYear(), month = nowJkt.getMonth()+1, day = nowJkt.getDate();
+
+  const weekBody = document.getElementById("weekBody");
+  weekBody.innerHTML = "";
+
+  for (let i=0;i<7;i++) {
+    // create date offset in Jakarta by using Date with timezone string
+    const dJkt = new Date(Date.UTC(year, month-1, day + i));
+    // get Y M D for that Jakarta date by constructing via toLocaleString in Asia/Jakarta
+    const local = new Date(new Date(Date.UTC(dJkt.getUTCFullYear(), dJkt.getUTCMonth(), dJkt.getUTCDate())).toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+    const y = local.getFullYear(), m = local.getMonth()+1, dd = local.getDate();
+
+    const times = computePrayerTimesForDate(y, m, dd);
+
+    const row = document.createElement('tr');
+    const dateCell = document.createElement('td');
+    dateCell.innerText = new Date(y, m-1, dd).toLocaleDateString('id-ID', { weekday:'short', day:'numeric', month:'short', timeZone:'Asia/Jakarta' });
+    row.appendChild(dateCell);
+
+    const cells = ['fajr','dhuhr','asr','maghrib','isha'].map(k=>{
+      const td = document.createElement('td');
+      td.innerText = times[k].toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'Asia/Jakarta' });
+      return td;
+    });
+    cells.forEach(c=>row.appendChild(c));
+    weekBody.appendChild(row);
+  }
+
+  // fill today main table using today's Jakarta date
+  const todayTimes = computePrayerTimesForDate(year, month, day);
+  document.getElementById("subuh").innerText = todayTimes.fajr.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false, timeZone:'Asia/Jakarta'});
+  document.getElementById("dzuhur").innerText = todayTimes.dhuhr.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false, timeZone:'Asia/Jakarta'});
+  document.getElementById("ashar").innerText = todayTimes.asr.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false, timeZone:'Asia/Jakarta'});
+  document.getElementById("maghrib").innerText = todayTimes.maghrib.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false, timeZone:'Asia/Jakarta'});
+  document.getElementById("isya").innerText = todayTimes.isha.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false, timeZone:'Asia/Jakarta'});
+
+  return todayTimes;
+}
+
+/* Find next prayer relative to Jakarta now */
+function findNextPrayerFromNow() {
+  const now = nowJakarta();
+  // compute today times
+  const todayTimes = computePrayerTimesForDate(now.getFullYear(), now.getMonth()+1, now.getDate());
+  const order = [
+    {key:'fajr', name:'Subuh', date: todayTimes.fajr},
+    {key:'dhuhr', name:'Dzuhur', date: todayTimes.dhuhr},
+    {key:'asr', name:'Ashar', date: todayTimes.asr},
+    {key:'maghrib', name:'Maghrib', date: todayTimes.maghrib},
+    {key:'isha', name:'Isya', date: todayTimes.isha}
+  ];
+
+  for (let p of order) {
+    if (p.date.getTime() - now.getTime() > 0) return p;
+  }
+
+  // if none found, return next day's fajr
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate()+1);
+  const tTimes = computePrayerTimesForDate(tomorrow.getFullYear(), tomorrow.getMonth()+1, tomorrow.getDate());
+  return { key:'fajr', name:'Subuh', date: tTimes.fajr };
+}
+
+/* Popup adzan behaviour */
+const adzanAudioEl = document.getElementById('adzanAudio');
+
+function showAdzanPopup(name, time) {
+  document.getElementById('adzanName').innerText = 'Adzan ' + name;
+  document.getElementById('adzanTime').innerText = time.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Jakarta'});
+  document.getElementById('adzanPopup').style.display = 'flex';
+  // try to play; may be blocked until user interacts
+  adzanAudioEl.currentTime = 0;
+  adzanAudioEl.play().catch(()=>{ /* ignore autoplay block */ });
+}
+
+document.getElementById('closeAdzan').addEventListener('click', ()=>{
+  document.getElementById('adzanPopup').style.display = 'none';
+  try { adzanAudioEl.pause(); adzanAudioEl.currentTime = 0; } catch(e) {}
+});
+
+/* Countdown loop */
+let currentTarget = null;
 function startCountdownLoop() {
-    const countdownTimeEl = document.getElementById("countdownTime");
-    const countdownTitleEl = document.getElementById("countdownTitle");
-    const countdownLabelEl = document.getElementById("countdownLabel");
+  function tick() {
+    const now = nowJakarta();
 
-    let currentTarget = null;
-    function tick() {
-        const now = nowJakarta();
-        if (!currentTarget || (currentTarget.time.getTime() - now.getTime() <= 0)) {
-            const next = findNextPrayer();
-            currentTarget = { time: next.time, name: next.name };
+    if (!currentTarget) currentTarget = findNextPrayerFromNow();
 
-            if (now.getDay() === 5) {
-                const y = now.getFullYear(), m = now.getMonth()+1, d = now.getDate();
-                const t = computeTimesForDate(y,m,d);
-                const timeStr = t.dhuhr.toLocaleTimeString('en-GB', {hour12:false, timeZone:'Asia/Jakarta'});
-                const [hh, mm] = timeStr.split(':').map(Number);
-                const jumatTimeObj = new Date(`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00 GMT+0700`);
-                if (jumatTimeObj.getTime() - now.getTime() > 0) {
-                    currentTarget.time = jumatTimeObj;
-                    currentTarget.name = 'Sholat Jumat';
-                }
-            }
-
-            countdownTitleEl.innerText = `Hitung Mundur ke ${currentTarget.name}`;
-            countdownLabelEl.innerText = `Waktu target: ${currentTarget.time.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', timeZone: 'Asia/Jakarta', hour12:false })} WIB`;
-        }
-
-        const diff = currentTarget.time.getTime() - now.getTime();
-        const inProgressWindow = 5 * 60 * 1000;
-        if (diff <= 0 && Math.abs(diff) <= inProgressWindow) {
-            countdownTimeEl.innerText = "Sedang Berlangsung";
-            return;
-        }
-
-        if (diff <= -inProgressWindow) {
-            currentTarget = null;
-            countdownTimeEl.innerText = "Memperbarui...";
-            return;
-        }
-
-        const h = Math.floor(diff / (1000*60*60));
-        const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-        const s = Math.floor((diff % (1000*60)) / 1000);
-        countdownTimeEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    // if current target already passed, recalc
+    if (currentTarget && (currentTarget.date.getTime() - now.getTime() <= 0)) {
+      // show popup once when time hits (within small window)
+      if (Math.abs(currentTarget.date.getTime() - now.getTime()) < 60*1000) {
+        showAdzanPopup(currentTarget.name, currentTarget.date);
+      }
+      currentTarget = findNextPrayerFromNow();
     }
 
-    tick();
-    setInterval(tick, 1000);
+    // compute diff
+    const diff = currentTarget.date.getTime() - now.getTime();
+    const diffPos = Math.max(0, diff);
+    const h = Math.floor(diffPos / 3600000);
+    const m = Math.floor((diffPos % 3600000) / 60000);
+    const s = Math.floor((diffPos % 60000) / 1000);
+
+    document.getElementById('countdownTime').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    document.getElementById('countdownTitle').innerText = 'Hitung Mundur ke ' + currentTarget.name;
+    document.getElementById('countdownLabel').innerText = 'Waktu target: ' + currentTarget.date.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Jakarta'});
+  }
+
+  tick();
+  setInterval(tick, 1000);
 }
 
-/* 9) Initialize page */
+/* Init: build schedule for 7 days and start loop */
 function init() {
-    const now = nowJakarta();
-    document.getElementById("todayDate").innerText =
-        now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+  const now = nowJakarta();
+  document.getElementById('todayDate').innerText = now.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'Asia/Jakarta'});
 
-    buildWeekSchedule();
-    fillTodayTimes();
-    startCountdownLoop();
+  buildWeekScheduleAndFill();
+  startCountdownLoop();
 
-    document.getElementById('khutbahSection').style.display = 'block';
+  // attempt to unlock audio on first user interaction (improves autoplay)
+  function unlockAudio() {
+    adzanAudioEl.play().then(()=>adzanAudioEl.pause()).catch(()=>{});
+    document.removeEventListener('click', unlockAudio);
+  }
+  document.addEventListener('click', unlockAudio);
 }
 
 init();
-
-setInterval(() => {
-    const now = nowJakarta();
-    if (now.getHours() === 0 && now.getMinutes() < 6) {
-        buildWeekSchedule();
-        fillTodayTimes();
-    }
-}, 60*1000);
 </script>
 </body>
 </html>

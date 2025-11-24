@@ -27,16 +27,31 @@
 
     <style>
         .prayer-box {
-            background: rgba(255,255,255,0.4);
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(8px);
-            padding: 30px;
-            border-radius: 15px;
+            background: rgba(255,255,255,0.45);
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 18px;
         }
 
-        .prayer-box h3 {
-            font-size: 40px;
+        .countdown-box {
+            margin-top: 25px;
+            background: rgba(0,0,0,0.06);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .countdown-time {
+            font-size: 42px;
             font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .khutbah-section {
+            background: rgba(255,255,255,0.7);
+            border-radius: 18px;
+            padding: 40px;
         }
 
         table.prayer-table {
@@ -48,12 +63,6 @@
             padding: 12px 0;
             font-size: 20px;
             border-bottom: 1px solid #ddd;
-        }
-
-        .khutbah-section {
-            background: #fff;
-            border-radius: 15px;
-            padding: 40px;
         }
     </style>
 
@@ -116,29 +125,33 @@
         <h4 class="mb-3"><i class="fa fa-calendar-alt text-primary"></i> <span id="todayDate"></span></h4>
 
         <table class="prayer-table">
-            <tr><td><strong>Subuh</strong></td><td>04:28</td><td>Imam: Ust. Hasan</td></tr>
-            <tr><td><strong>Dzuhur</strong></td><td>11:45</td><td>Imam: Ust. Basim</td></tr>
-            <tr><td><strong>Ashar</strong></td><td>15:07</td><td>Imam: Ust. Rakhan</td></tr>
-            <tr><td><strong>Maghrib</strong></td><td>17:32</td><td>Imam: Ust. Zaki</td></tr>
-            <tr><td><strong>Isya</strong></td><td>18:45</td><td>Imam: Ust. Malik</td></tr>
+            <tr><td><strong>Subuh</strong></td><td id="subuh">04:28</td><td>Imam: Ust. Hasan</td></tr>
+            <tr><td><strong>Dzuhur</strong></td><td id="dzuhur">11:45</td><td>Imam: Ust. Basim</td></tr>
+            <tr><td><strong>Ashar</strong></td><td id="ashar">15:07</td><td>Imam: Ust. Rakhan</td></tr>
+            <tr><td><strong>Maghrib</strong></td><td id="maghrib">17:32</td><td>Imam: Ust. Zaki</td></tr>
+            <tr><td><strong>Isya</strong></td><td id="isya">18:45</td><td>Imam: Ust. Malik</td></tr>
         </table>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-box shadow mt-4">
+            <h4 id="countdownTitle" class="mb-2"></h4>
+            <div id="countdownTime" class="countdown-time">00:00:00</div>
+        </div>
+
     </div>
 </div>
-
 
 
 
 <!-- KHUTBAH JUMAT -->
-<div class="container pb-5">
+<div class="container pb-5" id="khutbahSection" style="display:none;">
     <div class="khutbah-section shadow wow fadeIn" data-wow-delay="0.3s">
-        <h2 class="mb-3">Khutbah Jumat Minggu Ini</h2>
+        <h2 class="mb-3">Khutbah Jumat</h2>
         <h4 class="text-primary">Ust. Abdul Karim</h4>
         <p>Tema: Menghidupkan Hati dengan Dzikir</p>
-        <p><i class="fa fa-calendar"></i> Jumat, 28 Februari — 11:40</p>
+        <p><i class="fa fa-calendar"></i> Jumat — 11:40</p>
     </div>
 </div>
-
-
 
 
 
@@ -159,9 +172,67 @@
 <script src="js/main.js"></script>
 
 <script>
+    // Tanggal hari ini
     document.getElementById("todayDate").innerHTML = new Date().toLocaleDateString("id-ID", {
         weekday: "long", day: "numeric", month: "long", year: "numeric"
     });
+
+    // --- SHOW KHUTBAH ONLY ON FRIDAY ---
+    let day = new Date().getDay();
+    if(day === 5){  
+        document.getElementById("khutbahSection").style.display = "block";
+    }
+
+    // ---------------------------
+    // COUNTDOWN LOGIC
+    // ---------------------------
+    function countTo(timeText){
+        let target = new Date();
+        let [h,m] = timeText.split(":").map(Number);
+        target.setHours(h, m, 0, 0);
+        return target;
+    }
+
+    const prayerTimes = {
+        subuh: "04:28",
+        dzuhur: "11:45",
+        ashar: "15:07",
+        maghrib: "17:32",
+        isya: "18:45",
+        jumat: "11:40"
+    };
+
+    function getNextTarget(){
+        let now = new Date();
+        
+        if(now.getDay() === 5){  
+            document.getElementById("countdownTitle").innerHTML = "Hitung Mundur ke Sholat Jumat";
+            return countTo(prayerTimes.jumat);
+        } else {
+            document.getElementById("countdownTitle").innerHTML = "Hitung Mundur ke Dzuhur";
+            return countTo(prayerTimes.dzuhur);
+        }
+    }
+
+    function updateCountdown(){
+        let target = getNextTarget();
+        let now = new Date();
+        let diff = target - now;
+
+        if(diff < 0){
+            document.getElementById("countdownTime").innerHTML = "Sedang Berlangsung";
+            return;
+        }
+
+        let h = Math.floor(diff / 1000 / 60 / 60);
+        let m = Math.floor((diff / 1000 / 60) % 60);
+        let s = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("countdownTime").innerHTML =
+            `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    setInterval(updateCountdown, 1000);
 </script>
 
 </body>

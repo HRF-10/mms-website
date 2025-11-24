@@ -3,24 +3,33 @@
 <head>
     <meta charset="utf-8">
     <title>Qur'an & Pustaka - Masjid Dalem Kalitan Solo</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
+    <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Main Style -->
     <link href="css/style.css" rel="stylesheet">
 
+    <style>
+        #quranViewer, #bookViewer {
+            width: 100%;
+            height: 520px;
+            border: none;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .list-group button { cursor: pointer; }
+        .book-content { padding: 20px; font-size: 15px; line-height: 1.7; }
+    </style>
 </head>
+
 <body>
 
 <!-- NAV -->
@@ -46,6 +55,7 @@
     </div>
 </div>
 
+
 <!-- HERO -->
 <div class="container-fluid hero-header">
     <div class="container">
@@ -53,79 +63,91 @@
             <div class="col-lg-8">
                 <div class="hero-header-inner animated zoomIn">
                     <h1 class="display-1 text-dark">Qur’an & Pustaka</h1>
-                    <p class="lead text-dark">Belajar, membaca, dan memahami ilmu Islam secara digital.</p>
+                    <p class="lead text-dark">Belajar Al-Qur’an dan buku islami secara digital.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SECTION: QURAN PLAYER -->
+
+<!-- ===================== QURAN ===================== -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">Baca & Dengarkan Al-Qur’an</h2>
-    <p class="text-center text-muted mb-4">Akses Al-Qur’an secara digital lengkap dengan audio dan terjemahan.</p>
+    <h2 class="text-center mb-4">Baca Al-Qur’an</h2>
 
     <div class="row">
+        <!-- LIST JUZ -->
         <div class="col-lg-4">
-            <div class="list-group shadow-sm">
-                <button class="list-group-item list-group-item-action" onclick="loadSurah('1', 'Al-Fatihah')">Surah Al-Fatihah</button>
-                <button class="list-group-item list-group-item-action" onclick="loadSurah('2', 'Al-Baqarah')">Surah Al-Baqarah</button>
-                <button class="list-group-item list-group-item-action" onclick="loadSurah('36', 'Yasin')">Surah Yasin</button>
-                <button class="list-group-item list-group-item-action" onclick="loadSurah('55', 'Ar-Rahman')">Surah Ar-Rahman</button>
-                <button class="list-group-item list-group-item-action" onclick="loadSurah('67', 'Al-Mulk')">Surah Al-Mulk</button>
+            <div class="list-group shadow-sm" id="juzList"></div>
+        </div>
+
+        <!-- LIST SURAH -->
+        <div class="col-lg-3">
+            <div class="list-group shadow-sm" id="surahList">
+                <button class="list-group-item">Pilih Juz terlebih dahulu</button>
             </div>
         </div>
 
-        <div class="col-lg-8">
-            <div class="p-4 bg-white shadow-sm rounded">
-                <h4 id="surahTitle" class="mb-3">Pilih Surah</h4>
-                <iframe id="quranViewer" src="" width="100%" height="450" style="border:none;border-radius:10px;"></iframe>
+        <!-- VIEWER -->
+        <div class="col-lg-5">
+            <div class="p-3 bg-white rounded shadow-sm">
+                <h4 id="surahTitle">Viewer Qur’an</h4>
+                <iframe id="quranViewer"></iframe>
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- SECTION: LIBRARY -->
+<!-- ===================== LIBRARY ===================== -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">Pustaka Islami</h2>
-    <p class="text-center text-muted mb-5">Koleksi buku digital untuk dipelajari kapan saja.</p>
+    <h2 class="text-center mb-4">Pustaka Digital</h2>
 
     <div class="row g-4">
 
+        <!-- BOOK 1 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book1.jpg" class="card-img-top" alt="Fiqih Sunnah">
+                <img src="img/book1.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Fiqih Sunnah</h5>
                     <p class="text-muted">Sayyid Sabiq</p>
-                    <a href="assets/fiqih-sunnah.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                    <button class="btn btn-primary w-100" onclick="showBook('fiqih')">Baca Buku</button>
                 </div>
             </div>
         </div>
 
+        <!-- BOOK 2 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book2.jpg" class="card-img-top" alt="Sirah Nabawiyah">
+                <img src="img/book2.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Sirah Nabawiyah</h5>
                     <p class="text-muted">Ibnu Katsir</p>
-                    <a href="assets/sirah.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                    <button class="btn btn-primary w-100" onclick="showBook('sirah')">Baca Buku</button>
                 </div>
             </div>
         </div>
 
+        <!-- BOOK 3 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book3.jpg" class="card-img-top" alt="Riyadhus Shalihin">
+                <img src="img/book3.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Riyadhus Shalihin</h5>
                     <p class="text-muted">Imam Nawawi</p>
-                    <a href="assets/riyadhus-shalihin.pdf" target="_blank" class="btn btn-primary w-100">Baca Buku</a>
+                    <button class="btn btn-primary w-100" onclick="showBook('riyadhus')">Baca Buku</button>
                 </div>
             </div>
         </div>
 
+        <!-- VIEWER -->
+        <div class="col-lg-12 mt-4">
+            <div class="p-3 bg-white shadow-sm rounded">
+                <h4>Book Viewer</h4>
+                <iframe id="bookViewer"></iframe>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -133,18 +155,119 @@
 <!-- FOOTER -->
 <div class="container-fluid footer pt-5">
     <div class="container text-center py-5 text-light">
-        <p>© 2025 Masjid Dalem Kalitan Solo. Semua Hak Dilindungi.</p>
+        © 2025 Masjid Dalem Kalitan Solo.
     </div>
 </div>
 
-<!-- SCRIPT -->
+
+<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-function loadSurah(num, name) {
-    document.getElementById("surahTitle").textContent = "Surah " + name;
-    document.getElementById("quranViewer").src = "https://quran.com/" + num;
+/* ===============================
+   DATA SURAH BERDASARKAN JUZ
+   =============================== */
+
+const juzData = {
+    1:[1,2],2:[2],3:[2,3],4:[3,4],5:[4,5],6:[5,6],7:[6,7],
+    8:[7,8],9:[8,9],10:[9,10,11],11:[11,12],12:[12,13],13:[13,14],
+    14:[14,15],15:[17,18],16:[18,19,20],17:[21,22],18:[23,24,25],
+    19:[25,26],20:[27,28],21:[29,30,31,32,33],22:[33,34,35,36],
+    23:[36,37,38],24:[39,40,41,42],25:[43,44,45,46],26:[46,47,48,49],
+    27:[51,52,53,54,55,56,57],28:[58,59,60,61,62,63,64],
+    29:[67,68,69,70,71,72,73,74],
+    30:[78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,
+        98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114]
+};
+
+let surahNames = [];
+
+// GET SURAH NAMES
+fetch("https://api.alquran.cloud/v1/surah")
+    .then(r => r.json())
+    .then(d => {
+        surahNames = d.data.map(s => s.englishName);
+        buildJuzList();
+    });
+
+// BUILD JUZ LIST
+function buildJuzList() {
+    const box = document.getElementById("juzList");
+    for (let i = 1; i <= 30; i++) {
+        box.innerHTML += `
+        <button class="list-group-item list-group-item-action" onclick="openJuz(${i})">
+            Juz ${i}
+        </button>`;
+    }
+}
+
+// SHOW SURAH IN JUZ
+function openJuz(j) {
+    const surahList = document.getElementById("surahList");
+    surahList.innerHTML = "";
+
+    juzData[j].forEach(num => {
+        surahList.innerHTML += `
+        <button class="list-group-item list-group-item-action" onclick="loadSurah(${num})">
+            ${num}. ${surahNames[num-1]}
+        </button>`;
+    });
+}
+
+// OPEN SURAH
+function loadSurah(num) {
+    document.getElementById("surahTitle").textContent = "Surah " + surahNames[num-1];
+    document.getElementById("quranViewer").src = `https://quran.com/${num}`;
+}
+
+/* ===============================
+   BOOK VIEWER (NO PDF)
+   =============================== */
+
+function showBook(book) {
+    let html = "";
+    if(book === "fiqih") {
+        html = `
+        <div class='book-content'>
+            <h2>Fiqih Sunnah – Sayyid Sabiq</h2>
+            <p><b>Ringkasan Prototype:</b></p>
+            <p>Fiqih Sunnah adalah salah satu karya populer dalam fikih
+            yang ditulis oleh Sayyid Sabiq. Buku ini membahas hukum-hukum
+            fikih praktis berdasarkan dalil Al-Qur'an dan Hadits.</p>
+            <p>Materi mencakup thaharah, shalat, zakat, puasa, haji, muamalah,
+            dan banyak lagi. Cocok untuk pembelajaran dasar fikih.</p>
+            <hr>
+        </div>`;
+    }
+
+    if(book === "sirah") {
+        html = `
+        <div class='book-content'>
+            <h2>Sirah Nabawiyah – Ibnu Katsir</h2>
+            <p><b>Ringkasan Prototype:</b></p>
+            <p>Sirah Nabawiyah karya Ibnu Katsir adalah biografi Rasulullah SAW
+            yang komprehensif, mencakup kelahiran, dakwah, hijrah, peperangan,
+            dan wafat beliau.</p>
+            <p>Buku ini sangat penting dalam memahami perjuangan Nabi.</p>
+            <hr>
+        </div>`;
+    }
+
+    if(book === "riyadhus") {
+        html = `
+        <div class='book-content'>
+            <h2>Riyadhus Shalihin – Imam Nawawi</h2>
+            <p><b>Ringkasan Prototype:</b></p>
+            <p>Buku hadis terkenal berisi kumpulan hadits tentang akhlak, ibadah,
+            keutamaan amal, dan adab sehari-hari.</p>
+            <p>Sangat direkomendasikan sebagai pedoman pembinaan akhlak.</p>
+            <hr>
+        </div>`;
+    }
+
+    const iframe = document.getElementById("bookViewer");
+    iframe.srcdoc = html;
 }
 </script>
 

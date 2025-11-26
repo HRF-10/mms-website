@@ -25,6 +25,19 @@
             background: #fafafa;
         }
 
+        .card-img-top {
+            height: 260px;         /* seragam */
+            object-fit: cover;     /* crop rapi */
+            border-radius: 6px 6px 0 0;
+        }
+
+        #bookViewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background: #fafafa;
+        }
+
         .list-group button { cursor: pointer; }
         .book-content { padding: 20px; font-size: 15px; line-height: 1.7; }
     </style>
@@ -46,7 +59,7 @@
                     <div class="col-lg-5 text-end">
                         <div class="h-100 d-inline-flex align-items-center">
                             <span class="text-body">Follow Us:</span>
-                            <a class="text-dark px-2" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="text-dark px-2" href="https://www.instagram.com/explore/locations/250327180/masjid-nurul-iman-kalitan/"><i class="fab fa-instagram"></i></a>
                             <a class="text-body ps-4" href=""><i class="fa fa-lock text-dark me-1"></i> Login</a>
                         </div>
                     </div>
@@ -130,7 +143,7 @@
         <!-- BOOK 1 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book1.jpg" class="card-img-top">
+                <img src="img/sayyid sabiq.png" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Fiqih Sunnah</h5>
                     <p class="text-muted">Sayyid Sabiq</p>
@@ -142,9 +155,9 @@
         <!-- BOOK 2 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book2.jpg" class="card-img-top">
+                <img src="img/kisah_para_nabi.png" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Sirah Nabawiyah</h5>
+                    <h5 class="card-title">Kisah Para Nabi</h5>
                     <p class="text-muted">Ibnu Katsir</p>
                     <button class="btn btn-primary w-100" onclick="showBook('sirah')">Baca Buku</button>
                 </div>
@@ -154,7 +167,7 @@
         <!-- BOOK 3 -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm">
-                <img src="img/book3.jpg" class="card-img-top">
+                <img src="img/riyadus.png" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Riyadhus Shalihin</h5>
                     <p class="text-muted">Imam Nawawi</p>
@@ -297,17 +310,29 @@ function loadSurah(num) {
    =============================== */
 
 function showBook(book) {
+    let pdfURL = "";
+
+    // MASUKKAN LINK PDF ANDA DI SINI
+    if(book === "fiqih") {
+        pdfURL = "https://cahayamalamdibulanjuli.wordpress.com/wp-content/uploads/2011/05/feqhus-sunnah-jilid-1.pdf";
+    }
+    if(book === "sirah") {
+        pdfURL = "https://d1.islamhouse.com/data/id/ih_books/single/id-kisah-para-nabi.pdf";
+    }
+    if(book === "riyadhus") {
+        pdfURL = "https://d1.islamhouse.com/data/id/ih_books/parts/Riyad_AlSaliheen/id_01_Riyad_AlSaliheen.pdf";
+    }
+
+    // Jika butuh viewer eksternal yang lebih stabil
+    const viewer = document.getElementById("bookViewer");
+    viewer.src = `https://docs.google.com/gview?embedded=true&url=${pdfURL}`;
+}
     let html = "";
     if(book === "fiqih") {
         html = `
         <div class='book-content'>
             <h2>Fiqih Sunnah – Sayyid Sabiq</h2>
-            <p><b>Ringkasan Prototype:</b></p>
-            <p>Fiqih Sunnah adalah salah satu karya populer dalam fikih
-            yang ditulis oleh Sayyid Sabiq. Buku ini membahas hukum-hukum
-            fikih praktis berdasarkan dalil Al-Qur'an dan Hadits.</p>
-            <p>Materi mencakup thaharah, shalat, zakat, puasa, haji, muamalah,
-            dan banyak lagi. Cocok untuk pembelajaran dasar fikih.</p>
+            <p>Fiqih Sunnah yang ditulis oleh Sayyid Sabiq cukup memenuhi kebutuhan umat Islam dalam pengetahuan agama mereka. Kitab seperti inilah yang ditunggu oleh umat untuk menjawab berbagai persoalan yang terjadi di tengah masyarakat modern. Umat menginginkan sebuah sajian praktis, ilmiyyah, namun mencakup seluruh aspek kehidupan dimulai dari amalan sehari-hari sampai kemasyarakatan atau bahkan kenegaraan, dan semua aspek itu telah terjawab dalam satu kitab Fikih Sunnah yang ditulis oleh Sayyid Sabiq ini. Tentunya tidak mudah bagi Sayyid Sabiq menyusun sebuah kitab yang dapat mengorelasikan antara hukum syar’i dengan masalah-masalah modern yang terjadi hari ini. Semua itu telah berhasil dilalui karena beliau berasal dari latar belakang akademisi, pernah mengenyam pendidikan di Fakultas Al-Azhar, Mesir, dan Ummul Qura, Arab Saudi, serta sempat mengajar di kedua universitas tersebut.</p>
             <hr>
         </div>`;
     }
@@ -339,7 +364,7 @@ function showBook(book) {
 
     const iframe = document.getElementById("bookViewer");
     iframe.srcdoc = html;
-}
+
 </script>
 
 </body>

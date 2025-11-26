@@ -351,7 +351,12 @@ h4, h5, h6, .h4, .h5, .h6 {
 }
 
 .team .team-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
     transition: 0.5s;
+    border-radius: 8px;
 }
 
 .team .team-item:hover img {
